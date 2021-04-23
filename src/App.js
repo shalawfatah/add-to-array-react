@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [text, setText] = useState('')
+  const [list, setList] = useState([])
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    const newList = [...list]
+    if(!text) return
+    newList.push(text)
+    setList(newList)
+    setText('')
+  } 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>List of Items</h1>
+      <form onSubmit={handleClick}>
+        <input type='text' value={text} onChange={(e) => setText(e.target.value)} />
+        <button type="submit">Add</button>
+      </form>
+      <div>
+        {list.map((item, index) => {
+          return (
+            <>
+            <li key={index}>{item}</li>
+            </>
+          )
+        })}
+      </div>
     </div>
   );
 }
