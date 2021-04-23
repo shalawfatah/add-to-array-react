@@ -4,6 +4,7 @@ import './App.css';
 function App() {
   const [text, setText] = useState('')
   const [list, setList] = useState([])
+  const [line, setLine] = useState(false)
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -24,7 +25,7 @@ function App() {
         {list.map((item, index) => {
           return (
             <>
-            <li key={index}>{item}</li>
+            <li onClick={() => setLine(prev => !prev)} className={`${line ? 'strike-through' : ''}`} key={index}>{item}</li>
             </>
           )
         })}
